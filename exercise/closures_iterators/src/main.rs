@@ -6,8 +6,8 @@ fn main() {
     // number multiplied by itself), and assign the closure to the "square" variable. Then run the
     // code and make sure it works.
 
-    // let square = ...
-    // println!("5 squared is {}", square(5));
+    let square = |x| {x*x};
+    println!("5 squared is {}", square(5));
 
     // 2. Uncomment the code below.  Finish the .map() iterator adaptor call by passing it a closure
     // which takes a tuple of two integers as a parameter, and returns a tuple with the first
@@ -17,19 +17,33 @@ fn main() {
     // let pairs = vec![(0, 1), (2, 3), (4, 5)];
     // pairs
     //     .into_iter()
-    //     .map( ... )
+    //     .map(|mut x| {
+    //         x.0 += 1;
+    //         x
+    //     })
     //     .for_each(|t| println!("{:?}", t));
+
+    let pairs = vec![(0, 1), (2, 3), (4, 5)];
+
+    for mut x in pairs {
+        x.0 += 1;
+        println!("{:?}", x)
+    }
 
     // 3. Uncomment the code below. There is a mutable vector named `numbers`. Use an iterator over
     // mutable references to multiply each of the values in `numbers` by 3.
     // Hint 1: You'll need .iter_mut() -- bonus points if you use the shorter, syntactic sugar form!
     // Hint 2: `x` will be a mutable reference, so remember to dereference it to use it
 
-    // let mut numbers = vec![1, 2, 3, 4];
-    // for x in ... {
-    //     ... // multiply the value by 3 via the mutable reference x
+    let mut numbers = vec![1, 2, 3, 4];
+    // for x in &mut numbers {
+    //     *x = *x * 3;
     // }
     // println!("{:?}", numbers); // should print [3, 6, 9, 12]
+
+    let numbers2 = numbers.iter_mut().map(|x| {*x*3}).collect::<Vec<i32>>();
+    println!("{:?}", numbers2); // should print [3, 6, 9, 12]
+
 
     // 4. Uncomment the code below.  Take the vector of words and
     // - Convert the vector into an iterator with .into_iter()
@@ -39,9 +53,13 @@ fn main() {
     //
     // Hint: .to_uppercase() is a method on `str` which returns a String
 
-    // let words = vec!["autobot", "beach", "car", "decepticon", "energon", "frothy"];
-    // let transformed...  // do the stuff here
-    // println!("Transformed: {:?}", transformed);
+    let words = vec!["autobot", "beach", "car", "decepticon", "energon", "frothy"];
+    let transformed = words.into_iter()
+        .filter(|s| {s.contains("h")})
+        .map(|s| {s.to_uppercase()})
+        .collect::<Vec<String>>();
+      // do the stuff here
+    println!("Transformed: {:?}", transformed);
 
     // Challenge:
     //
