@@ -55,7 +55,7 @@ fn main() {
 
     let words = vec!["autobot", "beach", "car", "decepticon", "energon", "frothy"];
     let transformed = words.into_iter()
-        .filter(|s| {s.contains("h")})
+        .filter(|s| !{s.contains("h")})
         .map(|s| {s.to_uppercase()})
         .collect::<Vec<String>>();
       // do the stuff here
